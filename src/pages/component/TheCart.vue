@@ -70,7 +70,7 @@
             { mealId, quantity: 0 }
         ]
     };
-
+ 
     const response = await fetchService.put(`/restaurants/cart`, body);
     console.log(response);
 
