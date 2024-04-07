@@ -11,7 +11,10 @@
     <transition name="popup">
          <div class="popup-container" @click.stop v-if="popupVisible">
              <div class="card">
-                 <img :src="props.meal.image" alt="">
+                <div class="cardImage">
+                    <img :src="props.meal.image" alt="">
+                    <button @click="closePopup">></button>
+                </div>
                 <div class="content">
 
                  <div class="card-content">
@@ -161,10 +164,38 @@ onMounted(() => {
  .card-content h3{
     color:#fff;
  }
+ .cardImage{
+    position: relative;
+ }
  .card img{
          width: 100%;
          height: auto;
  }
+ .cardImage button {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 40px; 
+    height: 40px; 
+    background-color: rgba(0, 0, 0, 0.7); 
+    border: none;
+    color: white; 
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 50%; 
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; 
+    outline: none; 
+    transition: background-color 0.3s ease; 
+    transform: rotate(90deg);
+}
+
+.cardImage button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
  .card h1{
      color: #66fcf1;
      font-size: 25px;
@@ -194,8 +225,7 @@ onMounted(() => {
  .cart button:hover{
     background-color: rgba(69, 162, 158, 0.6);
  }
- .additions{
- }
+ 
  
  .additions label{
      color: #66fcf1
@@ -242,11 +272,19 @@ onMounted(() => {
     opacity: 1;
  }
 
- @media (max-width: 376px){
+ @media (min-width: 374px){
     .card-content{
         flex-direction: column;
         align-items: normal;
         gap: 0px;
+    }
+ }
+ @media (min-width: 750px){
+    .card-content{
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        text-align: center;
     }
  }
  </style>

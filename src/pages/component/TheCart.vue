@@ -23,7 +23,7 @@
                 </li>
             </ul>
             <div class="finishOrder" v-if="cartItems?.length">
-                <p>Finish order!</p>
+                <p>Zavrsi kupovinu!</p>
                 <label class="container" @click="finishOrder">
                 <input type="checkbox">
         <div class="checkmark" ></div>
@@ -93,7 +93,7 @@
    async function finishOrder(){
     const response = await fetchService.delete('/restaurants/cart');
     const orderP = document.querySelector('.finishOrder p'); 
-    orderP.innerText = 'Order finished!';
+    orderP.innerText = 'Uspesno!';
     if(response.status === 'ok'){
         setTimeout(() => {
             store.dispatch('calculateCounter', response.data.cart);
