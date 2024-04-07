@@ -31,7 +31,10 @@ const router = createRouter({
             props: true,
             component: SingleRest
         },
-        
+        {
+            path: '/:notFound(.*)', 
+            component: LoginPage 
+        }
     ]   
 })
 
