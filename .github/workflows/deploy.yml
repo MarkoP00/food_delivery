@@ -1,36 +1,30 @@
-name: Deploy to GitHub Pages
+name: Deploy to GH Pages
 
 on:
   push:
     branches:
       - master
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
-  build-and-deploy:
+  build-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - name: Checkout 🛎️
+        uses: actions/checkout@master
         with:
-          node-version: '14'
+          persist-credentials: false
 
-      - name: Install dependencies
+      - name: Install 🔧
         run: npm install
 
-      - name: Build project
-        run: npm run build
+      - name: Build 🏗️
+        run: npm build
+        env:
+          NODE_ENV: production
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+      - name: Deploy to GH Pages 🚀
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          branch: gh-pages
-          folder: dist
-          GITHUB_TOKEN: ${{ secrets.deploy_key }}
+          github_token: ${{ secrets.deploy_key }}
+          publish_dir: dist
