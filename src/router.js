@@ -34,6 +34,10 @@ const router = createRouter({
         {
             path: '/:notFound(.*)', 
             component: LoginPage 
+        },
+        {
+            path: '/food_delivery/', 
+            component: RestaurantPage 
         }
     ]   
 })
