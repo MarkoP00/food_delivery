@@ -6,9 +6,9 @@
               <router-link to="/restaurants">Logo</router-link>
             </div>
             <ul class="links">
-              <li><a href="">Pocetna</a></li>
-              <li><a href="">O nama</a></li>
-              <li><a href="">Usluge</a></li>
+              <li><a >Pocetna</a></li>
+              <li><a >O nama</a></li>
+              <li><a >Usluge</a></li>
               <li class="special"><a @click="toggleCart">Korpa</a> <p v-if="cartCounter?.length">{{ cartCounter.length }}</p></li>
             </ul>
             <div class="toggle_btn">
@@ -17,9 +17,9 @@
           </div>
         <transition name="drop">
           <div class="dropDown" v-if="dropDownVisible">
-            <li><a href="">Pocetna</a></li>
-            <li><a href="">O nama</a></li>
-            <li><a href="">Usluge</a></li>
+            <li><a >Pocetna</a></li>
+            <li><a >O nama</a></li>
+            <li><a >Usluge</a></li>
             <li class="special"><a @click="toggleCart">Korpa</a> <p v-if="cartCounter?.length">{{ cartCounter.length }}</p></li>
           </div>
         </transition>
