@@ -6,10 +6,10 @@
               <router-link to="/restaurants">Logo</router-link>
             </div>
             <ul class="links">
-              <li><a href="">Home</a></li>
-              <li><a href="">About</a></li>
-              <li><a href="">Service</a></li>
-              <li class="special"><a @click="toggleCart">Cart</a> <p v-if="cartCounter?.length">{{ cartCounter.length }}</p></li>
+              <li><a href="">Pocetna</a></li>
+              <li><a href="">O nama</a></li>
+              <li><a href="">Usluge</a></li>
+              <li class="special"><a @click="toggleCart">Korpa</a> <p v-if="cartCounter?.length">{{ cartCounter.length }}</p></li>
             </ul>
             <div class="toggle_btn">
                 <img @click="toggleDropDown($event)" width="50" height="50" src="https://img.icons8.com/3d-fluency/188/menu.png" alt="menu"/>
@@ -17,10 +17,10 @@
           </div>
         <transition name="drop">
           <div class="dropDown" v-if="dropDownVisible">
-            <li><a href="">Home</a></li>
-            <li><a href="">About</a></li>
-            <li><a href="">Service</a></li>
-            <li class="special"><a @click="toggleCart">Cart</a> <p v-if="cartCounter?.length">{{ cartCounter.length }}</p></li>
+            <li><a href="">Pocetna</a></li>
+            <li><a href="">O nama</a></li>
+            <li><a href="">Usluge</a></li>
+            <li class="special"><a @click="toggleCart">Korpa</a> <p v-if="cartCounter?.length">{{ cartCounter.length }}</p></li>
           </div>
         </transition>
         </header>
@@ -119,7 +119,7 @@ main{
     transform: scaleX(1); 
 }
 .links li a:hover{
-    color:#66fcf1
+    color:#66f1fc
 
 }
 header{

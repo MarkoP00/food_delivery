@@ -12,28 +12,32 @@
          <div class="popup-container" @click.stop v-if="popupVisible">
              <div class="card">
                  <img :src="props.meal.image" alt="">
+                <div class="content">
+
                  <div class="card-content">
                      <h1>{{ props.meal.title }}</h1>
-                     <p>{{ props.meal.description }}</p>
-                 </div>
+                     <h3>{{ props.meal.price }},00 rsd</h3>
+                    </div>
+                    <p>{{ props.meal.description }}</p>
                  <div class="additions" v-for="(addition, index) in props.meal.additions" :key="index">
-                     <!-- <input type="checkbox" :id="'inpPrice' + index" :value="addition.price" v-model="selectedAdditions" @change="handleCheckboxChange(addition.title)"> -->
                      <label :for="'inpPrice' + index" @change="handleCheckboxChange(addition.title)">{{ addition.title }}</label>
                  </div>
                  <div class="cart">
-                     <div class="price">
-                         <p>{{ selectedPrice }}rsd</p>
-                     </div>
+                     <!-- <div class="price">
+                         <p>{{ selectedPrice }},00 rsd</p>
+                     </div> -->
                      <div class="counter">
                         <button @click="decrement">-</button>
                         <p>{{ quantity }}</p>
                         <button @click="increment">+</button>
                      </div>
                      <div class="button">
-                         <button @click="addToCart(props.meal.id)">Add to cart!</button>
+                         <button @click="addToCartClicked(props.meal.id)">Dodaj u korpu! {{ selectedPrice }} rsd</button>
                      </div>
                  </div>
              </div>
+            </div>
+
          </div>
         </transition>
     </section>
@@ -52,7 +56,7 @@ const globalTitle = ref('');
 const globalMessage = ref('');
 const quantity = ref(1); 
 const selectedPrice = ref(parseInt(props.meal.price))
-const popupVisible = ref(null)
+const popupVisible = ref(null);
 const emit = defineEmits(['close-popup']);
 
 function increment(){
@@ -82,22 +86,38 @@ function closePopup(){
     }, 100);
 }
 
-async function addToCart(mealId){
-    const body = {
-        order: [
-        { mealId, quantity: quantity.value }
-        ]
-    }
+async function addToCart(mealId) {
+    const quantityInCart = await getCart(mealId);
     
-    const response = await fetchService.put(`/restaurants/cart`,body);
+  const body = {
+    order: [
+      { mealId, quantity: quantity.value + quantityInCart }
+    ]
+  }
 
-    if(response.status === 'ok'){
-        store.dispatch('addToCart', props.meal)
-        globalTitle.value = 'Success!!!';
-        globalMessage.value = 'Item added to cart! ✔️'
-    }
+  const response = await fetchService.put(`/restaurants/cart`, body);
+
+  if (response.status === 'ok') {
+    store.dispatch('addToCart', props.meal);
+    globalTitle.value = 'Bravo!';
+    globalMessage.value = 'Jelo je poslato u korpu! '
+  }
 }
 
+async function getCart(mealId){
+    const response = await fetchService.get(`/restaurants/cart`);
+
+    const mealFound = await response.data.cart.find(meal => meal.mealId === mealId)
+    if(mealFound){
+        return mealFound.quantity
+    }else{
+        return 0;
+    }
+}
+function addToCartClicked(mealId) {
+  addToCart(mealId);
+  showPopup();
+}
 
 onMounted(() => {
     showPopup()
@@ -127,9 +147,19 @@ onMounted(() => {
      background-color: #1f2833;
      border-radius: 8px;
      overflow: hidden;
-     padding: 20px;
      box-shadow: -10px 10px 20px rgba(69, 162, 158, 0.6);
+ }
+ .content{
+    padding: 20px;
+ }
 
+ .card-content{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+ }
+ .card-content h3{
+    color:#fff;
  }
  .card img{
          width: 100%;
@@ -149,14 +179,13 @@ onMounted(() => {
  }
  .cart p{
      padding: 5px;
-     background-color: rgba(69, 162, 158, 0.6);
      border-radius: 10px;
  
  }
  .cart button{
      border: none;
      padding: 8px;
-     background-color: rgba(126, 247, 13, 0.6);
+     background-color: rgba(69, 162, 158, 1);
      color:#fff;
      border-radius: 10px;
      cursor: pointer;
@@ -166,25 +195,41 @@ onMounted(() => {
     background-color: rgba(69, 162, 158, 0.6);
  }
  .additions{
-    margin: 5px
  }
- .additions input{
-     margin-right: 10px;
- }
+ 
  .additions label{
      color: #66fcf1
  }
- .counter{
+ .counter {
     display: flex;
-    background: rgba(69, 162, 158, 0.8);
+    background-color: #0B0C10; 
     border-radius: 5px;
- }
- .counter p{
-    margin: 0px 5px 0px 5px;
- }
- .counter button{
-    background: #10524e;
- }
+    height: 35px;
+    width: 100px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.counter p {
+    margin: 0;
+    font-size: 16px;
+    color: #45f3ff;
+}
+
+.counter button {
+    background-color: rgba(69, 243, 255, 0.8); 
+    border: 2px solid #0B0C10; 
+    color: #fff; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    border-radius: 50%; 
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
  .popup-enter-from, .popup-leave-to{
     transform: scale(0.7);
     opacity: 0;
@@ -195,6 +240,14 @@ onMounted(() => {
  .popup-enter-to, .popup-leave-from{
     transform: scale(1);
     opacity: 1;
+ }
+
+ @media (max-width: 376px){
+    .card-content{
+        flex-direction: column;
+        align-items: normal;
+        gap: 0px;
+    }
  }
  </style>
  

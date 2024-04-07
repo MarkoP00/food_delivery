@@ -3,8 +3,8 @@
         <transition name="fadeInOut">
         <div class="mainCart" @click.stop  v-if="cartActive">
             <div class="headerTitle">
-                <p v-if="cartItems === null || cartItems.length === 0">Your cart is empty 😊</p>
-                <h1 v-else>Cart</h1>
+                <p v-if="cartItems === null || cartItems.length === 0">Korpa je prazna 😊</p>
+                <h1 v-else>Korpa</h1>
             </div>
             <div class="totalCounter">
                 <h1>Ukupna cena: {{ totalCounter }} rsd</h1>
@@ -54,7 +54,7 @@
     const cartActive = ref(false);
 
     async function getCart() {
-        const response = await fetchService.get(`/restaurants/cart/`);
+        const response = await fetchService.get(`/restaurants/cart`);
         if(response.status !== 'ok'){
             return
         }
@@ -72,7 +72,6 @@
     };
  
     const response = await fetchService.put(`/restaurants/cart`, body);
-    console.log(response);
 
     const deletedMeal = cartItems.value.find((meal) => meal.mealId === mealId);
     totalCounter.value -= deletedMeal.singleUnitPrice * deletedMeal.quantity;
@@ -80,18 +79,17 @@
     const itemIndex = cartItems.value.findIndex((meal) => meal.mealId === mealId);
     cartItems.value.splice(itemIndex, 1);
 }
-//showCart
     function showCart(){
         cartActive.value = true
     }
-    //close cart
+
     function closeCart(){
         cartActive.value = false;
         setTimeout(() => {
             emit('close-cart')
         }, 300);
     }
-//finish order
+    
    async function finishOrder(){
     const response = await fetchService.delete('/restaurants/cart');
     const orderP = document.querySelector('.finishOrder p'); 
@@ -254,7 +252,6 @@ li:hover{
   background-color: white;
 }
 
-/* Create a custom checkbox */
 .checkmark {
   position: relative;
   top: 0;
@@ -266,20 +263,17 @@ li:hover{
   border-radius: 50%;
 }
 
-/* When the checkbox is checked, add a blue background */
 .container input:checked ~ .checkmark {
   background-color: #20c580;
   transform: scale(1);
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the checkmark when checked */
 .container input:checked ~ .checkmark:after {
   display: block;
 }
@@ -288,7 +282,6 @@ li:hover{
   display: block;
 }
 
-/* Style the checkmark/indicator */
 .container .checkmark:after {
   left: 0.45em;
   top: 0.25em;

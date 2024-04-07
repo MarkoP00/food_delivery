@@ -92,8 +92,8 @@
         localStorage.setItem('token', logAnswer.data.token);
         if(logAnswer.status === 'ok'){
           icon.value = '✔️'
-          popupTitle.value = 'Success!'
-          popupMessage.value = 'You will be transfered to main page!';
+          popupTitle.value = 'Odobreno!'
+          popupMessage.value = 'Bicete prebaceni na pocetnu stranicu!';
           border.value = false;
           fetchActive.value = false;
           setTimeout(() => {
@@ -102,8 +102,8 @@
           }, 1500);
         }else{
           icon.value = '❌'
-          popupTitle.value = 'Failed!'
-          popupMessage.value = 'Please,try again!';
+          popupTitle.value = 'Neuspesno!'
+          popupMessage.value = 'Molim vas, pokusajte opet!';
           border.value = true;
           fetchActive.value = false;
         }
