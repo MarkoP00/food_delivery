@@ -8,8 +8,8 @@
             <ul class="links">
               <li><a >Pocetna</a></li>
               <li><a >O nama</a></li>
-              <li><a >Usluge</a></li>
               <li class="special"><a @click="toggleCart">Korpa</a> <p v-if="cartCounter?.length">{{ cartCounter.length }}</p></li>
+              <li><router-link  to="/food_delivery/login">Logout</router-link></li>
             </ul>
             <div class="toggle_btn">
                 <img @click="toggleDropDown($event)" width="50" height="50" src="https://img.icons8.com/3d-fluency/188/menu.png" alt="menu"/>
@@ -19,8 +19,8 @@
           <div class="dropDown" v-if="dropDownVisible">
             <li><a >Pocetna</a></li>
             <li><a >O nama</a></li>
-            <li><a >Usluge</a></li>
             <li class="special"><a @click="toggleCart">Korpa</a> <p v-if="cartCounter?.length">{{ cartCounter.length }}</p></li>
+            <li ><router-link  to="/food_delivery/login">Logout</router-link></li>
           </div>
         </transition>
         </header>
@@ -221,6 +221,7 @@ header{
     opacity: 1;
     transform: scale(1);
 }
+
 @media(max-width: 990px){
     .navbar .links{
         display: none;
