@@ -20,7 +20,7 @@ const router = createRouter({
         {
             path: '/food_delivery/login',
             component: LoginPage,
-            name: 'Login'
+            name: 'Login',
         },
         {
             path: '/food_delivery/create',
