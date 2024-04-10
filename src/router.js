@@ -10,7 +10,7 @@ const router = createRouter({
     
     routes: [
         {
-            path: '/',
+            path: '/food_delivery/',
             component: RestaurantPage, 
         },
         {
@@ -18,12 +18,12 @@ const router = createRouter({
             component: RestaurantPage,
         },
         {
-            path: '/login',
+            path: '/food_delivery/login',
             component: LoginPage,
             name: 'Login'
         },
         {
-            path: '/create',
+            path: '/food_delivery/create',
             component: CreateAccount
         },
         {
@@ -37,7 +37,7 @@ const router = createRouter({
             component: SingleRest
         },
         {
-            path: '/:notFound(.*)', 
+            path: '/food_delivery/:notFound(.*)', 
             component: LoginPage 
         },
     ]   
