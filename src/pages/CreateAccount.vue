@@ -33,7 +33,7 @@
        </div>
        <div class="toCreate">
          <p>Already have an account?</p>
-         <router-link to="/login">Login</router-link>
+         <router-link to="/food_delivery/login">Login</router-link>
        </div>
        <div class="submitButton">
            <button type="button" @click="submitForm">Submit!</button>

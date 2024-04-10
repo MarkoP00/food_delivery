@@ -25,7 +25,7 @@
         </div>
         <div class="toCreate">
           <p>Dont have an account?</p>
-          <router-link to="/create">Create</router-link>
+          <router-link to="/food_delivery/create">Create</router-link>
         </div>
         <div class="submitButton">
             <button type="button" @click="submitForm" >Submit!</button>
