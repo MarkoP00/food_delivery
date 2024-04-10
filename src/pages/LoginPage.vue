@@ -98,7 +98,7 @@
           fetchActive.value = false;
           setTimeout(() => {
             store.state.loggedUser = true
-            router.push('/restaurants');
+            router.push('/food_delivery/restaurants');
           }, 1500);
         }else{
           icon.value = '❌'

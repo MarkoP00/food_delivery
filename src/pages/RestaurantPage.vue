@@ -40,7 +40,7 @@
       store.dispatch('calculateCounter', response.data.cart)
     }
     function navigateToRestaurant(id){
-        router.push(`/restaurants/${id}`)
+        router.push(`/food_delivery/restaurants/${id}`)
     }
  
 onMounted(() => {

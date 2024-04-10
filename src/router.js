@@ -4,12 +4,17 @@ import CreateAccount from './pages/CreateAccount.vue';
 import RestaurantPage from "./pages/RestaurantPage.vue";
 import SingleRest from './pages/component/SingleRest.vue';
 import auth from "./middleware/auth";
+
 const router = createRouter({
     history: createWebHistory(),
     
     routes: [
         {
             path: '/',
+            component: RestaurantPage, 
+        },
+        {
+            path: '/food_delivery/',
             component: RestaurantPage,
         },
         {
@@ -22,12 +27,12 @@ const router = createRouter({
             component: CreateAccount
         },
         {
-            path: '/restaurants',
+            path: '/food_delivery/restaurants',
             component: RestaurantPage,
             beforeEnter: [auth]
         },
         {
-            path: '/restaurants/:restId',
+            path: '/food_delivery/restaurants/:restId',
             props: true,
             component: SingleRest
         },
@@ -35,10 +40,6 @@ const router = createRouter({
             path: '/:notFound(.*)', 
             component: LoginPage 
         },
-        {
-            path: '/food_delivery/', 
-            component: RestaurantPage 
-        }
     ]   
 })
 
