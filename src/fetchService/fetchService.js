@@ -24,7 +24,7 @@ export default {
             })
             if(!response.ok && response.status === 401){
                 localStorage.removeItem('token');
-                router.push('/login')
+                router.push('/food_delivery/login')
             }
                 const data = await response.json();
                 return data
