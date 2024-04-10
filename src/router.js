@@ -17,21 +17,21 @@ const router = createRouter({
             redirect: '/food_delivery/' 
         },
         {
-            path: '/login',
+            path: '/food_delivery/login',
             component: LoginPage,
             name: 'Login'
         },
         {
-            path: '/create',
+            path: '/food_delivery/create',
             component: CreateAccount
         },
         {
-            path: '/restaurants',
+            path: '/food_delivery/restaurants',
             component: RestaurantPage,
             beforeEnter: [auth]
         },
         {
-            path: '/restaurants/:restId',
+            path: '/food_delivery/restaurants/:restId',
             props: true,
             component: SingleRest
         },
