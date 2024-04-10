@@ -36,12 +36,15 @@ import GlobalSpinner from '../../global/GlobalSpinner.vue';
 const props = defineProps({
   restId: String
 });
-console.log(props);
+if(props){
+  localStorage.setItem('restaurantId', props.restId)
+}
 const singleRest = ref([]);
 const restMeals = ref(null);
 const selectedMeal = ref(null);
 
 async function getRestaurant(){
+  const restId = localStorage.getItem('restaurantId')
   const restInfo = await fetchService.get(`/restaurants/${props.restId}`);
   const meals = await fetchService.get(`/restaurants/${props.restId}/meals`);
 
