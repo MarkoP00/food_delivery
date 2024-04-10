@@ -3,7 +3,7 @@
         <header>
           <div class="navbar">
             <div class="logo">
-              <router-link to="/food_delivery/restaurants">Logo</router-link>
+              <router-link to="/food_delivery/">Logo</router-link>
             </div>
             <ul class="links">
               <li><a >Pocetna</a></li>

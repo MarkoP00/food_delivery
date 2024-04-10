@@ -36,7 +36,7 @@ import GlobalSpinner from '../../global/GlobalSpinner.vue';
 const props = defineProps({
   restId: String
 });
-
+console.log(props);
 const singleRest = ref([]);
 const restMeals = ref(null);
 const selectedMeal = ref(null);
