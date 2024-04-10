@@ -7,40 +7,37 @@ import auth from "./middleware/auth";
 
 const router = createRouter({
     history: createWebHistory(),
-    
+    base: '/food_delivery/', 
     routes: [
         {
-            path: '/food_delivery/',
+            path: '/',
             component: RestaurantPage, 
         },
         {
-            path: '/food_delivery/',
-            component: RestaurantPage,
-        },
-        {
-            path: '/food_delivery/login',
+            path: '/login',
             component: LoginPage,
             name: 'Login'
         },
         {
-            path: '/food_delivery/create',
+            path: '/create',
             component: CreateAccount
         },
         {
-            path: '/food_delivery/restaurants',
+            path: '/restaurants',
             component: RestaurantPage,
             beforeEnter: [auth]
         },
         {
-            path: '/food_delivery/restaurants/:restId',
+            path: '/restaurants/:restId',
             props: true,
             component: SingleRest
         },
         {
-            path: '/food_delivery/:notFound(.*)', 
+            path: '/:notFound(.*)', 
             component: LoginPage 
         },
     ]   
 })
+
 
 export default router
