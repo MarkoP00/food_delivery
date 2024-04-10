@@ -10,10 +10,6 @@ const router = createRouter({
     
     routes: [
         {
-            path: '/',
-            component: RestaurantPage, 
-        },
-        {
             path: '/food_delivery/',
             component: RestaurantPage,
         },
