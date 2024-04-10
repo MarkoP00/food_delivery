@@ -1,4 +1,4 @@
-import { createRouter,createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import LoginPage from "./pages/LoginPage.vue";
 import CreateAccount from './pages/CreateAccount.vue';
 import RestaurantPage from "./pages/RestaurantPage.vue";
@@ -7,33 +7,36 @@ import auth from "./middleware/auth";
 
 const router = createRouter({
     history: createWebHistory(),
-    
     routes: [
         {
             path: '/food_delivery/',
             component: RestaurantPage,
         },
         {
-            path: '/food_delivery/login',
+            path: '/',
+            redirect: '/food_delivery/' 
+        },
+        {
+            path: '/login',
             component: LoginPage,
             name: 'Login'
         },
         {
-            path: '/food_delivery/create',
+            path: '/create',
             component: CreateAccount
         },
         {
-            path: '/food_delivery/restaurants',
+            path: '/restaurants',
             component: RestaurantPage,
             beforeEnter: [auth]
         },
         {
-            path: '/food_delivery/restaurants/:restId',
+            path: '/restaurants/:restId',
             props: true,
             component: SingleRest
         },
         {
-            path: '/food_delivery/:notFound(.*)', 
+            path: '/:notFound(.*)', 
             component: LoginPage 
         },
     ]   

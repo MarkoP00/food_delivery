@@ -11,7 +11,7 @@ import {useRoute} from 'vue-router';
 
 const router = useRoute();
 // const path = computed(() => router.path);
-const unwantedRoutes = ['/login','/create'];
+const unwantedRoutes = ['/food_delivery/login','/food_delivery/create'];
 
 
 </script>
