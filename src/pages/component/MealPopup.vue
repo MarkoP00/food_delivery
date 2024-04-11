@@ -26,7 +26,6 @@
                      <label :for="'inpPrice' + index" @change="handleCheckboxChange(addition.title)">{{ addition.title }}</label>
                  </div>
                  <div class="cart">
-                    
                      <div class="counter">
                         <button @click="decrement">-</button>
                         <p>{{ quantity }}</p>
@@ -90,7 +89,6 @@ function closePopup(){
 async function addToCart(mealId) {
     const quantityInCart = await getCart(mealId);
     const cartItems = store.state.cartItems;
-
     const body = {
         order: [
             { mealId, quantity: quantity.value + quantityInCart }
@@ -100,7 +98,7 @@ async function addToCart(mealId) {
     const response = await fetchService.put(`/restaurants/cart`, body);
 
     if (response.status === 'ok') {
-        if (cartItems.some(item => item.mealId === mealId)) {
+        if (cartItems.some(item => item.id === mealId) || cartItems.some(item => item.mealId === mealId)) {
             globalTitle.value = 'Bravo!';
             globalMessage.value = 'Jelo je poslato u korpu!';
         } else {
