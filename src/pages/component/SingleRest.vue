@@ -48,7 +48,7 @@ async function getRestaurant(){
   const restInfo = await fetchService.get(`/restaurants/${restId}`);
   const meals = await fetchService.get(`/restaurants/${restId}/meals`);
 
-  singleRest.value = restInfo.data;
+  singleRest.value = restInfo.data.restaurant;
   restMeals.value = meals.data.meals;
   
   localStorage.setItem('restID', restInfo.data.id)
