@@ -74,34 +74,39 @@
    })
    
    
- function validateInputs() {
- Object.keys(formData).forEach((key) => {
-   if (formData[key].value === '') {
-     popupTitle.value = 'Neuspesno!';
-     icon.value = '❌';
-     border.value = true;
-     popupMessage.value = 'Popunite sva polja! Takodje, sifre moraju da budu iste!';
-     formData[key].invalid = true;
-   } else {
-     formData[key].invalid = false
-   }
-   if (key === 'email' && !formData.email.value.includes('@')) {
-     popupTitle.value = 'Neuspesno!';
-     icon.value = '❌';
-     border.value = true;
-     popupMessage.value = 'Email adresa mora sadrsati @ simbol!';
-     formData.email.invalid = true;
-   }
- })
-   if(formData.password.value !== formData.confirm.value){
-     popupTitle.value = 'Neuspesno!';
-     icon.value = '❌';
-     border.value = true;
-     popupMessage.value = 'Popunite sva polja! Takodje, sifre moraju da budu iste!';
-     formData.password.invalid = true;
-     formData.confirm.invalid = true;
-   }
+function validateInputs() {
+  Object.keys(formData).forEach((key) => {
+    if (formData[key].value === '') {
+      popupTitle.value = 'Neuspesno!';
+      icon.value = '❌';
+      border.value = true;
+      formData[key].invalid = true;
+    } else {
+      formData[key].invalid = false;
+    }
+    if (key === 'email' && (!formData.email.value.includes('@') || !formData.email.value.includes('.com'))) {
+      popupTitle.value = 'Neuspesno!';
+      icon.value = '❌';
+      border.value = true;
+      formData.email.invalid = true;
+    }
+    if (formData[key].value.length < 5) {
+        popupTitle.value = 'Neuspesno!';
+        icon.value = '❌';
+        border.value = true;
+        formData[key].invalid = true;
+      }
+  });
+
+  if (formData.password.value !== formData.confirm.value) {
+    popupTitle.value = 'Neuspesno!';
+    icon.value = '❌';
+    border.value = true;
+    formData.password.invalid = true;
+    formData.confirm.invalid = true;
+  }
 }
+
 
    async function submitForm() {
    validateInputs();
@@ -126,14 +131,14 @@
                if (createUser.status === 'ok') {
                    icon.value = '✔️';
                    border.value = false;
-                   popupTitle.value = 'Odobreno!!';
-                   popupMessage.value = 'Sada mozete da se prijavite na novi profil!';
+                   popupTitle.value = 'Odobreno!';
+                  //  popupMessage.value = 'Sada mozete da se prijavite na novi profil!';
                    localStorage.setItem('id', createUser.data.user.id);
                    fetchActive.value = false;
                } else {
                    icon.value = '❌';
                    popupTitle.value = 'Neuspesno!';
-                   popupMessage.value = 'Pokusajte ponovo!';
+                  //  popupMessage.value = 'Pokusajte ponovo!';
                    border.value = true;
                    fetchActive.value = false;
                }

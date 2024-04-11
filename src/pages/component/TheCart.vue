@@ -1,5 +1,7 @@
 <template>
+    
     <section @click="closeCart">
+
         <transition name="fadeInOut">
         <div class="mainCart" @click.stop  v-if="cartActive">
             <div class="headerTitle">
@@ -23,19 +25,8 @@
                 </li>
             </ul>
             <div class="finishOrder" v-if="cartItems?.length">
-                <p>Zavrsi kupovinu!</p>
-                <label class="container" @click="finishOrder">
-                <input type="checkbox">
-        <div class="checkmark" ></div>
-            <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" class="celebrate">
-        <polygon points="0,0 10,10"></polygon>
-        <polygon points="0,25 10,25"></polygon>
-        <polygon points="0,50 10,40"></polygon>
-        <polygon points="50,0 40,10"></polygon>
-        <polygon points="50,25 40,25"></polygon>
-        <polygon points="50,50 40,40"></polygon>
-    </svg>
-    </label>
+                <button v-if="!checkMarkActive" @click="finishOrder">Zavrsi kupovinu</button>
+                <CheckMark v-else></CheckMark>
             </div>
         </div>
     </transition>
@@ -46,12 +37,14 @@
     import fetchService from '../../fetchService/fetchService';
     import {useStore} from 'vuex';
     import {onMounted, ref, defineEmits} from 'vue';
+    import CheckMark from './CheckMark.vue';
 
     const emit = defineEmits(['close-cart']);
     const store = useStore();
     const cartItems = ref(null);
     const totalCounter = ref(0);
     const cartActive = ref(false);
+    const checkMarkActive = ref(false);
 
     async function getCart() {
         const response = await fetchService.get(`/restaurants/cart`);
@@ -92,14 +85,13 @@
     
    async function finishOrder(){
     const response = await fetchService.delete('/restaurants/cart');
-    const orderP = document.querySelector('.finishOrder p'); 
-    orderP.innerText = 'Uspesno!';
+    checkMarkActive.value = true;
     if(response.status === 'ok'){
         setTimeout(() => {
             store.dispatch('calculateCounter', response.data.cart);
             totalCounter.value = 0;
             cartItems.value = null
-        }, 1000);
+        }, 1500);
     }
    }
 
@@ -123,7 +115,6 @@ section {
     align-items: center;
     background-color: rgba(0,0,0,0.4);
     z-index: 100;
-
 }
 
 .mainCart {
@@ -137,6 +128,7 @@ section {
     border-left: 1px solid #45f3ff;
     border-top: 1px solid #45f3ff;
     border-bottom: 1px solid #45f3ff;
+    position: relative;
 }
 .headerTitle{
     text-align: center;
@@ -218,15 +210,25 @@ li:hover{
     opacity: 1;
     transform: translateX(0px);
 }
+
 .finishOrder{
+    /* position: absolute; */
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.finishOrder p{
-    margin: 0px 5px 0px 5px;
-    font-weight: 600;
-    color: #66fcf1;
+.finishOrder button{
+    border: none;
+     padding: 8px;
+     background-color: rgba(69, 162, 158, 1);
+     color:#fff;
+     border-radius: 10px;
+     cursor: pointer;
+     font-size: 16px;
+     transition: 0.3s;
+}
+.finishOrder button:hover{
+    background-color: rgba(69, 162, 158, 0.6);
 }
 @media (max-width: 426px){
     .mainCart{

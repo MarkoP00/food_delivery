@@ -12,7 +12,8 @@
     </AccountPopup>
 
 <section>
-    <div class="box" @keydown.enter="submitForm" :class="{active : fetchActive}">
+  <CheckMark v-if="logSuccess"></CheckMark>
+    <div v-else class="box" @keydown.enter="submitForm" :class="{active : fetchActive}">
     <form @submit.prevent>
         <h3>Login</h3>
         <div class="formBox">
@@ -42,6 +43,7 @@
     import { useRouter } from 'vue-router';
     import AccountPopup from '../global/AccountPopup.vue';
     import { useStore } from 'vuex';
+    import CheckMark from './component/CheckMark.vue';
 
     localStorage.removeItem('token')
     const store = useStore();
@@ -54,6 +56,7 @@
     const popupTitle = ref('');
     const popupMessage = ref('');
     const border = ref('');
+    const logSuccess = ref(null);
 
     const logFormData = reactive({
       email: {
@@ -71,8 +74,7 @@
       Object.keys(logFormData).forEach((key) => {
         if(logFormData[key].value === ''){
           icon.value = '❌'
-          popupTitle.value = 'Failed!'
-          popupMessage.value = 'Please,fill all inputs!';
+          popupTitle.value = 'Neuspesno!'
           border.value = true;
           logFormData[key].invalid = true;
           inputInvalid = true;
@@ -91,19 +93,14 @@
         const logAnswer = await fetchService.post('/restaurants/users/login', {email: formEmail.value, password: formPassword.value});
         localStorage.setItem('token', logAnswer.data.token);
         if(logAnswer.status === 'ok'){
-          icon.value = '✔️'
-          popupTitle.value = 'Odobreno!'
-          popupMessage.value = 'Bicete prebaceni na pocetnu stranicu!';
-          border.value = false;
-          fetchActive.value = false;
+          logSuccess.value = true;
+          store.state.loggedUser = true
           setTimeout(() => {
-            store.state.loggedUser = true
             router.push('/food_delivery/restaurants');
           }, 1500);
         }else{
           icon.value = '❌'
           popupTitle.value = 'Neuspesno!'
-          popupMessage.value = 'Molim vas, pokusajte opet!';
           border.value = true;
           fetchActive.value = false;
         }

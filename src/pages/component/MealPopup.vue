@@ -26,9 +26,7 @@
                      <label :for="'inpPrice' + index" @change="handleCheckboxChange(addition.title)">{{ addition.title }}</label>
                  </div>
                  <div class="cart">
-                     <!-- <div class="price">
-                         <p>{{ selectedPrice }},00 rsd</p>
-                     </div> -->
+                    
                      <div class="counter">
                         <button @click="decrement">-</button>
                         <p>{{ quantity }}</p>
@@ -91,20 +89,26 @@ function closePopup(){
 
 async function addToCart(mealId) {
     const quantityInCart = await getCart(mealId);
-    
-  const body = {
-    order: [
-      { mealId, quantity: quantity.value + quantityInCart }
-    ]
-  }
+    const cartItems = store.state.cartItems;
 
-  const response = await fetchService.put(`/restaurants/cart`, body);
+    const body = {
+        order: [
+            { mealId, quantity: quantity.value + quantityInCart }
+        ]
+    }
 
-  if (response.status === 'ok') {
-    store.dispatch('addToCart', props.meal);
-    globalTitle.value = 'Bravo!';
-    globalMessage.value = 'Jelo je poslato u korpu! '
-  }
+    const response = await fetchService.put(`/restaurants/cart`, body);
+
+    if (response.status === 'ok') {
+        if (cartItems.some(item => item.mealId === mealId)) {
+            globalTitle.value = 'Bravo!';
+            globalMessage.value = 'Jelo je poslato u korpu!';
+        } else {
+            store.dispatch('addToCart', props.meal);
+            globalTitle.value = 'Bravo!';
+            globalMessage.value = 'Jelo je poslato u korpu!';
+        }
+    }
 }
 
 async function getCart(mealId){
