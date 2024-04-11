@@ -6,8 +6,8 @@
               <router-link to="/food_delivery/">Logo</router-link>
             </div>
             <ul class="links">
-              <li><a >Pocetna</a></li>
-              <li><a >O nama</a></li>
+              <li><router-link to="/food_delivery/">Pocetna</router-link></li>
+              <li><router-link to="/food_delivery/about">O aplikaciji</router-link></li>
               <li class="special"><a @click="toggleCart">Korpa</a> <p v-if="cartCounter?.length">{{ cartCounter.length }}</p></li>
               <li><router-link  to="/food_delivery/login">Logout</router-link></li>
             </ul>
@@ -17,8 +17,8 @@
           </div>
         <transition name="drop">
           <div class="dropDown" v-if="dropDownVisible">
-            <li><a >Pocetna</a></li>
-            <li><a >O nama</a></li>
+            <li><router-link to="/food_delivery/">Pocetna</router-link></li>
+            <li><router-link to="/food_delivery/about">O aplikaciji</router-link></li>
             <li class="special"><a @click="toggleCart">Korpa</a> <p v-if="cartCounter?.length">{{ cartCounter.length }}</p></li>
             <li ><router-link  to="/food_delivery/login">Logout</router-link></li>
           </div>

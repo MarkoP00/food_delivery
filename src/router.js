@@ -4,7 +4,7 @@ import CreateAccount from './pages/CreateAccount.vue';
 import RestaurantPage from "./pages/RestaurantPage.vue";
 import SingleRest from './pages/component/SingleRest.vue';
 import auth from "./middleware/auth";
-
+import AboutUs from "./pages/component/AboutUs.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -39,6 +39,10 @@ const router = createRouter({
             path: '/:notFound(.*)', 
             component: LoginPage 
         },
+        {
+            path: '/food_delivery/about',
+            component: AboutUs
+        }
     ]   
 })
 
